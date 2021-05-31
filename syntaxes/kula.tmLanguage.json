@@ -1,32 +1,73 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Kula",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
-	],
+	"scopeName": "source.kula",
+	"name": "kula",
+	"patterns": [{
+		"name": "comment.kula",
+		"match": "\\#.*\n"
+	}, {
+		"name": "keyword.control.kula",
+		"match": "\\b(if|while|func|return|import)\\b"
+	}, {
+		"name": "support.type.kula",
+		"match": "\\b(None|Any|Num|Str|Func)\\b"
+	}, {
+		"include": "#rightvars"
+	}],
 	"repository": {
-		"keywords": {
+		"rightvars": {
 			"patterns": [{
-				"name": "keyword.control.kula",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.kula",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
+					"include": "#numbers"
+				},
 				{
-					"name": "constant.character.escape.kula",
-					"match": "\\\\."
+					"include": "#strings"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#names"
 				}
 			]
+		},
+		"numbers": {
+			"name": "constant.numeric.kula",
+			"match": "\\b(\\+|-)?[0-9|\\.].*\\b"
+		},
+		"strings": {
+			"name": "string.kula",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [{
+				"name": "constant.character.escape.kula",
+				"match": "\\\\."
+			}]
+		},
+		"names": {
+			"name": "variable.kula",
+			"match": "\\b[A-za-z_][0-9a-zA-z_]*\\b"
+		},
+		"functions": {
+			"begin": "(\\b[A-za-z_][0-9a-zA-z_]*\\b)(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "support.function.kula"
+				},
+				"2": {
+					"name": "constant.other.symbol.kula"
+				}
+			},
+			"patterns": [{
+				"include": "#rightvars"
+			}, {
+				"match": ","
+			}],
+			"end": "(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "constant.other.symbol.kula"
+				}
+			}
 		}
-	},
-	"scopeName": ""
+	}
 }

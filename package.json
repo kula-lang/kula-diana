@@ -1,7 +1,7 @@
 {
     "name": "kula-diana",
     "displayName": "kula-diana",
-    "description": "",
+    "description": "Kula for VSCode",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.56.0"
@@ -9,7 +9,17 @@
     "categories": [
         "Programming Languages"
     ],
+    "main": "./src/extension.js",
+    "activationEvents": [
+        "onCommand:extension.sayHello"
+    ],
     "contributes": {
+        "commands": [
+            {
+                "command": "extension.sayHello",
+                "title": "hello"
+            }
+        ],
         "languages": [{
             "id": "kula",
             "aliases": ["Kula", "kula"],
@@ -18,7 +28,7 @@
         }],
         "grammars": [{
             "language": "kula",
-            "scopeName": "",
+            "scopeName": "source.kula",
             "path": "./syntaxes/kula.tmLanguage.json"
         }]
     }
