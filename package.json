@@ -1,7 +1,9 @@
 {
     "name": "kula-diana",
-    "displayName": "kula-diana",
-    "description": "Kula for VSCode",
+    "displayName": "Kula - Diana",
+    "publisher": "HanaYabuki",
+    "description": "Kula (lang) High-light for VSCode",
+    "keywords": ["kula", "kof"],
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.56.0"
@@ -9,10 +11,11 @@
     "categories": [
         "Programming Languages"
     ],
-    "main": "./src/extension.js",
+    "icon": "images/kula.png",
     "activationEvents": [
         "onCommand:extension.sayHello"
     ],
+    "main": "./src/extension",
     "contributes": {
         "commands": [
             {
@@ -31,5 +34,9 @@
             "scopeName": "source.kula",
             "path": "./syntaxes/kula.tmLanguage.json"
         }]
+    },
+    "repository": {
+        "type": "git",
+        "directory": "https://github.com/HanaYabuki/Kula-Diana"
     }
 }

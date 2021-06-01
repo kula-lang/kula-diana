@@ -1,65 +1,17 @@
-# kula-diana README
+# Kula-Diana : Kula 语言 的 VSCode 支持
+Diana 是 Kula 在音巢组织内的监护人。    
+所以，Diana 插件 是编写 Kula 语言程序的好帮手儿！    
 
-This is the README for your extension "kula-diana". After writing up a brief description, we recommend including the following sections.
+![Diana 和 Kula](https://imgsa.baidu.com/forum/w%3D580/sign=9843244436d3d539c13d0fcb0a86e927/fd0729a4462309f7c1fba9a8720e0cf3d6cad645.jpg)
 
-## Features
+Kula 语言: [点我了解！](https://github.com/HanaYabuki/Kula)
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## 支持的功能
+* Kula 语法高亮
+* 没了....
 
-For example if there is an image subfolder under your extension project workspace:
+## 更新日志
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+### 0.0.1
+* 支持基础的 Kula 语言高亮
+* ~~其余功能全靠VSCode自带的补全呜呜呜...~~
