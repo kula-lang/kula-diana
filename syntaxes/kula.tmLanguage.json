@@ -32,7 +32,7 @@
 		},
 		"numbers": {
 			"name": "constant.numeric.kula",
-			"match": "\\b(\\+|-)?[0-9|\\.].*\\b"
+			"match": "\\b[\\+\\-]?[0-9|\\.]+\\b"
 		},
 		"strings": {
 			"name": "string.kula",
@@ -48,23 +48,12 @@
 			"match": "\\b[A-za-z_][0-9a-zA-z_]*\\b"
 		},
 		"functions": {
-			"begin": "(\\b[A-za-z_][0-9a-zA-z_]*\\b)(\\()",
-			"beginCaptures": {
+			"match": "(\\b[A-za-z_][0-9a-zA-z_]*\\b)(\\()",
+			"captures": {
 				"1": {
 					"name": "support.function.kula"
 				},
 				"2": {
-					"name": "constant.other.symbol.kula"
-				}
-			},
-			"patterns": [{
-				"include": "#rightvars"
-			}, {
-				"match": ","
-			}],
-			"end": "(\\))",
-			"endCaptures": {
-				"1": {
 					"name": "constant.other.symbol.kula"
 				}
 			}
