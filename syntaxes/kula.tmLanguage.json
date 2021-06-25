@@ -10,9 +10,12 @@
 		"match": "\\b(if|while|func|return|import)\\b"
 	}, {
 		"name": "support.type.kula",
-		"match": "\\b(None|Any|Num|Str|Func)\\b"
+		"match": "\\b(None|Any|Num|Str|BuiltinFunc|Func|Array|Map)\\b"
 	}, {
 		"include": "#rightvars"
+	}, {
+		"name": "editor.background.kula",
+		"match": "[\\<\\>\\[\\]]"
 	}],
 	"repository": {
 		"rightvars": {
@@ -30,10 +33,12 @@
 				}
 			]
 		},
+
 		"numbers": {
 			"name": "constant.numeric.kula",
 			"match": "\\b[\\+\\-]?[0-9|\\.]+\\b"
 		},
+		
 		"strings": {
 			"name": "string.kula",
 			"begin": "\"",
@@ -43,12 +48,14 @@
 				"match": "\\\\."
 			}]
 		},
+		
 		"names": {
 			"name": "variable.kula",
-			"match": "\\b[A-za-z_][0-9a-zA-z_]*\\b"
+			"match": "\\b[A-Za-z_][0-9a-zA-Z_]*\\b"
 		},
+		
 		"functions": {
-			"match": "(\\b[A-za-z_][0-9a-zA-z_]*\\b)(\\()",
+			"match": "(\\b[A-Za-z_][0-9a-zA-Z_]**\\b)(\\()",
 			"captures": {
 				"1": {
 					"name": "support.function.kula"

@@ -3,8 +3,8 @@
     "displayName": "Kula - Diana",
     "publisher": "HanaYabuki",
     "description": "Kula (lang) High-light for VSCode",
-    "keywords": ["kula", "kof"],
-    "version": "0.0.2",
+    "keywords": ["Kula", "KULA", "kula", "kof"],
+    "version": "0.0.3",
     "engines": {
         "vscode": "^1.35.0"
     },
@@ -37,6 +37,6 @@
     },
     "repository": {
         "type": "git",
-        "directory": "https://github.com/HanaYabuki/Kula-Diana"
+        "directory": "https://github.com/kula-lang/Kula-Diana"
     }
 }
