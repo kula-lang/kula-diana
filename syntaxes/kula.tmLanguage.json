@@ -2,24 +2,26 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.kula",
 	"name": "kula",
-	"patterns": [{
-		"name": "comment.kula",
-		"match": "\\#.*\n"
-	}, {
-		"name": "keyword.control.kula",
-		"match": "\\b(if|while|func|return|import)\\b"
-	},{
-		"name": "keyword.kula",
-		"match": "\\b(null|dataMap)\\b"
-	}, {
-		"name": "support.type.kula",
-		"match": "\\b(None|Any|Num|Str|BuiltinFunc|Func|Array|Map)\\b"
-	}, {
-		"include": "#rightvars"
-	}, {
-		"name": "editor.background.kula",
-		"match": "[\\<\\>\\[\\]]"
-	}],
+	"patterns": [
+		{
+			"name": "comment.kula",
+			"match": "\\#.*\n"
+		}, {
+			"name": "keyword.control.kula",
+			"match": "\\b(if|else|while|func|return|import)\\b"
+		},{
+			"name": "keyword.kula",
+			"match": "\\b(null|dataMap)\\b"
+		}, {
+			"name": "support.type.kula",
+			"match": "\\b(None|Any|Num|Str|BuiltinFunc|Func|Array|Map)\\b"
+		}, {
+			"include": "#rightvars"
+		}, {
+			"name": "editor.background.kula",
+			"match": "[\\<\\>\\[\\]]"
+		}
+	],
 	"repository": {
 		"rightvars": {
 			"patterns": [{
@@ -62,9 +64,6 @@
 			"captures": {
 				"1": {
 					"name": "support.function.kula"
-				},
-				"2": {
-					"name": "constant.other.symbol.kula"
 				}
 			}
 		}

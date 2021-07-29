@@ -13,6 +13,10 @@ Kula 语言: [点我了解！](https://github.com/kula-lang/Kula)
 
 ## 更新日志
 
+### 0.0.5
++ 支持 `else` 关键字
++ 修复了 `()` 语法高亮错误
+
 ### 0.0.4
 + 支持 `null`, `dataMap` 关键字
 
