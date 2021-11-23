@@ -1,0 +1,226 @@
+{
+	"scopeName": "source.kula",
+	"name": "kula",
+	"patterns": [
+		{
+			"name": "comment.kula",
+			"match": "\\#.*\n"
+		},
+		{
+			"include": "#module"
+		},
+		{
+			"include": "#type-declare"
+		},
+		{
+			"include": "#statement"
+		}
+	],
+	"repository": {
+		"module": {
+			"begin": "(\\$import)\\s+(\")",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.kula"
+				},
+				"2": {
+					"name": "string.kula"
+				}
+			},
+			"patterns": [
+				{
+					"name": "string.kula",
+					"match": ".*"
+				}
+			],
+			"end": "(\")",
+			"endCaptures": {
+				"1": {
+					"name": "string.kula"
+				}
+			}
+		},
+		"type-declare": {
+			"begin": "(type)\\s+([A-Za-z_][0-9a-zA-Z_]*)\\s*({)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.kula"
+				},
+				"2": {
+					"name": "keyword.kula"
+				}
+			},
+			"patterns": [
+				{
+					"begin": "([A-Za-z_][0-9a-zA-Z_]*)\\s*(:)",
+					"beginCaptures": {
+						"1": {
+							"name": "support.variable.kula"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#kula-type"
+						}
+					],
+					"end": "(\\,)"
+				}
+			],
+			"end": "(\\})\\s*(;)"
+		},
+		"kula-type": {
+			"patterns": [
+				{
+					"begin": "(Func)(\\<)",
+					"beginCaptures": {
+						"0": {
+							"name": "support.type.kula"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#kula-type"
+						}
+					],
+					"end": "(\\>)",
+					"endCaptures": {
+						"0": {
+							"name": "support.type.kula"
+						}
+					}
+				},
+				{
+					"match": "([A-Za-z_][0-9a-zA-Z_]*)",
+					"name": "support.type.kula"
+				}
+			]
+		},
+		"statement": {
+			"patterns": [
+				{
+					"include": "#assign-statement"
+				},
+				{
+					"include": "#var-statement"
+				},
+				{
+					"begin": "\\{",
+					"end": "\\}",
+					"patterns": [
+						{
+							"include": "#statement"
+						}
+					]
+				}
+			],
+			"repository": {
+				"var-statement": {
+					"end": ";",
+					"patterns": [
+						{
+							"include": "#var-node"
+						}
+					]
+				},
+				"assign-statement": {
+					"begin": "([a-zA-Z_][a-zA-Z0-9_]*)\\s+(\\=)",
+					"beginCaptures": {
+						"1": {
+							"name": "variable.kula"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#var-node"
+						}
+					],
+					"end": ";"
+				},
+				"type-check": {
+					"begin": "(\\:)",
+					"patterns": [
+						{
+							"include": "#kula-type"
+						}
+					]
+				},
+				"var-node": {
+					"patterns": [
+						{
+							"name": "constant.numeric.kula",
+							"match": "\\b[\\+\\-]?[0-9|\\.]+\\b"
+						},
+						{
+							"name": "string.kula",
+							"begin": "\\b\"",
+							"end": "\"\\b",
+							"patterns": [
+								{
+									"name": "constant.character.escape.kula",
+									"match": "\\\\."
+								}
+							]
+						},
+						{
+							"begin": "(func)\\s*(\\()",
+							"beginCaptures": {
+								"1": {
+									"name": "keyword.control.kula"
+								}
+							},
+							"patterns": [
+								{
+									"match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(\\:)",
+									"captures": {
+										"1": {
+											"name": "variable.kula"
+										}
+									}
+								},
+								{
+									"include": "#kula-type"
+								}
+							],
+							"end": "(\\))(\\:{#kula-type})"
+						},
+						{
+							"match": "([A-Z][0-9a-zA-Z_]*)(\\.)",
+							"captures": {
+								"1": {
+									"name": "support.type.kula"
+								}
+							}
+						},
+						{
+							"begin":"([A-Za-z_][0-9a-zA-Z_]*)(\\()",
+							"beginCaptures": {
+								"1": {
+									"name": "support.function.kula"
+								}
+							},
+							"end": "\\)",
+							"patterns": [
+								{
+									"include": "#var-node"
+								}
+							]
+						},
+						{
+							"begin":"\\(",
+							"end": "\\)",
+							"patterns": [
+								{
+									"include": "#var-node"
+								}
+							]
+						},
+						{
+							"name": "variable.kula",
+							"match": "\\b[A-Za-z_][0-9a-zA-Z_]*\\b"
+						}
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,71 +1,188 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.kula",
 	"name": "kula",
 	"patterns": [
 		{
+			"comment": "注释",
 			"name": "comment.kula",
 			"match": "\\#.*\n"
-		}, {
-			"name": "keyword.control.kula",
-			"match": "\\b(if|else|while|func|return|import)\\b"
-		},{
-			"name": "keyword.kula",
-			"match": "\\b(null|dataMap)\\b"
-		}, {
-			"name": "support.type.kula",
-			"match": "\\b(None|Any|Num|Str|BuiltinFunc|Func|Array|Map)\\b"
-		}, {
-			"include": "#rightvars"
-		}, {
-			"name": "editor.background.kula",
-			"match": "[\\<\\>\\[\\]]"
-		}
-	],
-	"repository": {
-		"rightvars": {
-			"patterns": [{
-					"include": "#numbers"
-				},
+		},
+		{
+			"comment": "模块化引入",
+			"include": "#module"
+		},
+		{
+			"comment": "鸭子类型声明",
+			"include": "#ducktype-declare"
+		},
+		{
+			"comment": "字符串",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "string.kula"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "string.kula"
+				}
+			},
+			"name": "string.kula",
+			"patterns": [
 				{
-					"include": "#strings"
-				},
-				{
-					"include": "#functions"
-				},
-				{
-					"include": "#names"
+					"patterns": [
+						{
+							"match": "\\\\([0-7]{3}|[abfnrtv\\\\'\"]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})",
+							"name": "constant.character.escape.kula"
+						}
+					]
 				}
 			]
 		},
-
-		"numbers": {
-			"name": "constant.numeric.kula",
-			"match": "\\b[\\+\\-]?[0-9|\\.]+\\b"
+		{
+			"comment": "流程控制关键字",
+			"name": "keyword.control.kula",
+			"match": "\\b(if|else|while|return)\\b"
 		},
-		
-		"strings": {
-			"name": "string.kula",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [{
-				"name": "constant.character.escape.kula",
-				"match": "\\\\."
-			}]
+		{
+			"comment": "保留字常量",
+			"name": "keyword.const.kula",
+			"match": "\\b(null)\\b"
 		},
-		
-		"names": {
-			"name": "variable.kula",
-			"match": "\\b[A-Za-z_][0-9a-zA-Z_]*\\b"
+		{
+			"comment": "类型约束",
+			"begin": "\\:(?!\\=)",
+			"patterns": [
+				{
+					"include": "#kula-type"
+				}
+			],
+			"end": "(?={|\\(|\\,)"
 		},
-		
-		"functions": {
-			"match": "(\\b[A-Za-z_][0-9a-zA-Z_]**\\b)(\\()",
+		{
+			"comment": "lambda表达式",
+			"match": "\\b(func)\\s*(?=\\()",
 			"captures": {
-				"1": {
-					"name": "support.function.kula"
+				"0":{
+					"name": "keyword.control.kula"
 				}
 			}
+		},
+		{
+			"comment": "数字常量",
+			"match": "(\\+|\\-)?\\d+(\\.\\d+)?",
+			"name": "constant.numeric.kula"
+		},
+		{
+			"comment": "Map模拟类静态",
+			"match": "\\b[A-Z]\\w*(?=\\.)",
+			"name": "support.class.kula"
+		},
+		{
+			"comment": "内置基础函数",
+			"match": "\\b(eq|gt|lt|and|or|not|plus|minus|times|div)(?=\\s*\\()",
+			"name": "support.function.builtin.kula"
+		},
+		{
+			"comment": "函数调用",
+			"match": "\\b([\\w^\\d]\\w*)(?=\\s*\\()",
+			"name": "support.function.kula"
+		},
+		{
+			"comment": "形式参数",
+			"match": "\\b[\\w^\\d]\\w*\\s*(?=\\:)",
+			"name": "variable.parameter.kula"
+		},
+		{
+			"comment": "正常的变量，这条放在最后，防止把类型匹配进去",
+			"match": "\\b([\\w^\\d]\\w*)\\b",
+			"name": "variable.kula"
+		}
+	],
+	"repository": {
+		"module": {
+			"begin": "(\\$import)\\s+(\")",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.kula"
+				},
+				"2": {
+					"name": "string.kula"
+				}
+			},
+			"patterns": [
+				{
+					"name": "string.kula",
+					"match": ".*"
+				}
+			],
+			"end": "(\")",
+			"endCaptures": {
+				"1": {
+					"name": "string.kula"
+				}
+			}
+		},
+		"kula-type": {
+			"patterns": [
+				{
+					"begin": "(Func)(\\<)",
+					"beginCaptures": {
+						"1": {
+							"name": "support.type.kula"
+						},
+						"2": {
+							"name": "support.operator.kula"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#kula-type"
+						},
+						{
+							"match": ",",
+							"name": "support.type.kula"
+						}
+					],
+					"end": "(\\>)",
+					"endCaptures": {
+						"1": {
+							"name": "support.operator.kula"
+						}
+					}
+				},
+				{
+					"match": "([A-Za-z_][0-9a-zA-Z_]*)",
+					"name": "support.type.kula"
+				}
+			]
+		},
+		"ducktype-declare": {
+			"begin": "(type)\\s+([\\w^\\d]\\w*)\\s*({)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.kula"
+				},
+				"2": {
+					"name": "support.type.kula"
+				}
+			},
+			"patterns": [
+				{
+					"match": "([\\w^\\d]\\w*)\\s*(?=\\:)",
+					"captures": {
+						"0": {
+							"name": "variable.kula"
+						}
+					}
+				},
+				{
+					"include": "#kula-type"
+				}
+			],
+			"end": "(\\})\\s*(;)"
 		}
 	}
 }
