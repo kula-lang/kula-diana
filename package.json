@@ -3,8 +3,8 @@
     "displayName": "Kula - Diana",
     "publisher": "HanaYabuki",
     "description": "Kula (lang) High-light for VSCode",
-    "keywords": ["Kula", "KULA", "kula", "kof"],
-    "version": "0.0.5",
+    "keywords": ["Kula", "KULA", "kula", "kof", "diana", "Diana", "DIANA"],
+    "version": "0.1.0",
     "engines": {
         "vscode": "^1.35.0"
     },
@@ -17,12 +17,7 @@
     ],
     "main": "./src/extension",
     "contributes": {
-        "commands": [
-            {
-                "command": "extension.sayHello",
-                "title": "hello"
-            }
-        ],
+        "commands": [],
         "languages": [{
             "id": "kula",
             "aliases": ["Kula", "kula"],

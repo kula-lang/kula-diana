@@ -16,14 +16,14 @@
 			"include": "#ducktype-declare"
 		},
 		{
-			"comment": "字符串",
-			"begin": "\"",
+			"comment": "考虑转义字符的字符串，且不区分单双引",
+			"begin": "\"|'",
 			"beginCaptures": {
 				"0": {
 					"name": "string.kula"
 				}
 			},
-			"end": "\"",
+			"end": "\"|'",
 			"endCaptures": {
 				"0": {
 					"name": "string.kula"
@@ -86,6 +86,11 @@
 			"name": "support.function.builtin.kula"
 		},
 		{
+			"comment": "运算符",
+			"match": "(\\+|\\-|\\*|\\/)\\s*(?=\\()",
+			"name": "support.function.operator.kula"
+		},
+		{
 			"comment": "函数调用",
 			"match": "\\b([\\w^\\d]\\w*)(?=\\s*\\()",
 			"name": "support.function.kula"
@@ -134,7 +139,7 @@
 							"name": "support.type.kula"
 						},
 						"2": {
-							"name": "support.operator.kula"
+							"name": "punctuation.definition.type.begin.kula"
 						}
 					},
 					"patterns": [
@@ -149,7 +154,7 @@
 					"end": "(\\>)",
 					"endCaptures": {
 						"1": {
-							"name": "support.operator.kula"
+							"name": "punctuation.definition.type.end.kula"
 						}
 					}
 				},
