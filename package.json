@@ -3,8 +3,14 @@
     "displayName": "Kula - Diana",
     "publisher": "HanaYabuki",
     "description": "Kula (lang) High-light for VSCode",
-    "keywords": ["Kula", "KULA", "kula", "kof", "diana", "Diana", "DIANA"],
-    "version": "0.1.0",
+    "keywords": [
+        "kula",
+        "kula-lang",
+        "kula-programming-language",
+        "kof",
+        "diana"
+    ],
+    "version": "0.1.1",
     "engines": {
         "vscode": "^1.35.0"
     },
@@ -12,26 +18,37 @@
         "Programming Languages"
     ],
     "icon": "images/kula.png",
-    "activationEvents": [
-        "onCommand:extension.sayHello"
-    ],
+    "activationEvents": [],
     "main": "./src/extension",
     "contributes": {
         "commands": [],
-        "languages": [{
-            "id": "kula",
-            "aliases": ["Kula", "kula"],
-            "extensions": [".kula"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "kula",
-            "scopeName": "source.kula",
-            "path": "./syntaxes/kula.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "kula",
+                "icon": {
+                    "dark": "./images/ico_light.svg",
+                    "light": "./images/ico_dark.svg"
+                },
+                "aliases": [
+                    "Kula",
+                    "kula"
+                ],
+                "extensions": [
+                    ".kula"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "kula",
+                "scopeName": "source.kula",
+                "path": "./syntaxes/kula.tmLanguage.json"
+            }
+        ]
     },
     "repository": {
         "type": "git",
-        "directory": "https://github.com/kula-lang/Kula-Diana"
+        "directory": "https://github.com/kula-lang/kula-diana"
     }
 }
