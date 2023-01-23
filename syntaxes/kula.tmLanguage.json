@@ -12,9 +12,6 @@
 			"include": "#strings"
 		},
 		{
-			"include": "#variables"
-		},
-		{
 			"include": "#operators"
 		},
 		{
@@ -22,6 +19,9 @@
 		},
 		{
 			"include": "#punctuations"
+		},
+		{
+			"include": "#variables"
 		}
 	],
 	"repository": {
@@ -57,14 +57,14 @@
 				},
 				{
 					"name": "constant.language.kula",
-					"match": "\\b(null)\\b"
+					"match": "\\b(null|true|false)\\b"
 				}
 			]
 		},
 		"strings": {
 			"name": "string.kula",
-			"begin": "\"",
-			"end": "\"",
+			"begin": "([\"'`])",
+			"end": "\\1",
 			"patterns": [
 				{
 					"match": "\\\\([0-7]{3}|[abfnrtv\\\\'\"]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})",
@@ -82,7 +82,7 @@
 		},
 		"operators": {
 			"name": "keyword.operator.kula",
-			"match": "([\\+\\-\\*\\/\\!\\=<>]|:=|==|>=|<=|and|or)"
+			"match": "([\\+\\-\\*\\/\\!\\=<>]|:=|==|>=|<=|and|or|\\&\\&|\\|\\|)"
 		},
 		"punctuations": {
 			"name": "punctuation.kula",
