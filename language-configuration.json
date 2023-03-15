@@ -7,8 +7,7 @@
     "brackets": [
         ["{", "}"],
         ["[", "]"],
-        ["(", ")"],
-        ["<", ">"]
+        ["(", ")"]
     ],
     // symbols that are auto closed when typing
     "autoClosingPairs": [
@@ -32,7 +31,7 @@
     },
 
     "wordPattern": "([\\+\\-]?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
-    "autoCloseBefore": ";:.,=}])> \n\t",
+    "autoCloseBefore": ";:.,=}]) \n\t",
     "indentationRules": {
         "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$",
         "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$"
