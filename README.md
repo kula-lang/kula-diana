@@ -9,8 +9,3 @@ Kula 语言: [点我了解！](https://github.com/kula-lang/Kula)
 ## 支持的功能
 + Kula 语法高亮
 + 没了....
-
-## 更新日志
-+ 0.0.1
-  + 支持基础的 Kula 语言高亮
-  + ~~其余功能全靠VSCode自带的补全呜呜呜...~~
