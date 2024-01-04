@@ -8,4 +8,5 @@ Kula 语言: [点我了解！](https://github.com/kula-lang/Kula)
 
 ## 支持的功能
 + Kula 语法高亮
++ **Kula 代码格式化**
 + 没了....
