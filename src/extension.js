@@ -1,18 +1,20 @@
 const vscode = require('vscode');
 
 const formatRules = [
-    [/\b\s*(\+|-|\*|\/|\%|=|>|<|:=|>=|<=|==|and|or|&&|\|\|)\s*(?=\b|<<)/g, ' $1 '],
+    [/(?<=\b|>>)\s*(\+|-|\*|\/|\%|=|>|<|:=|>=|<=|==|and|or|&&|\|\|)\s*(?=\b|<<)/g, ' $1 '],
     [/\)\s*\{/g, ') {'],
     [/\(\s+\)/g, '()'],
     [/([a-zA-Z_]\w*)\s*(\{)/g, '$1 $2'],
     [/([a-zA-Z_]\w*)\s*(\(|\))/g, '$1$2'],
     [/\b\s*,\s*\b/g, ', '],
-    [/(if|else|for|func|while|class)\s*(?=\{|\(|\b)/g, '$1 '],
+    [/(if|else|for|func|while|class|print)\s*(?=\{|\(|\b|<<)/g, '$1 '],
     [/\s+;/g, ';']
 ]
 
-const stringsRule = /(['"`])(\\['"`]|.|\s)*?\1/gs
-const stringRecoveryRule = /<<STRING>>/g
+const stringsRule = /(['"`])(\\['"`]|.)*?\1/gs
+const commentsRule = /#.*?$/gm
+const stringsRecoveryRule = /<<STRING>>/g
+const commentsRecoveryRule = /<<COMMENT>>\n/g
 const leftBracketsRule = /[\{\(\[]/g
 const rightBracketsRule = /[\}\)\]]/g
 
@@ -28,9 +30,13 @@ exports.activate = function (context) {
 
             // protect strings
             const strings = []
+            const comments = []
             text = text.replace(stringsRule, function (match) {
                 strings.push(match)
                 return `<<STRING>>`
+            }).replace(commentsRule, function (match) {
+                comments.push(match)
+                return "<<COMMENT>>\n"
             })
             // rules replacement
             for (const rule of formatRules) {
@@ -50,7 +56,9 @@ exports.activate = function (context) {
             }).join('\n')
 
             // recovery strings
-            text = text.replace(stringRecoveryRule, () => strings.shift())
+            text = text
+                .replace(stringsRecoveryRule, () => strings.shift())
+                .replace(commentsRecoveryRule, () => comments.shift())
 
             result.push(new vscode.TextEdit(range, text))
             return result
