@@ -1,4 +1,4 @@
-const vscode = require('vscode');
+const vscode = require('vscode')
 
 const formatRules = [
     [/(?<=\b|>>)\s*(\+|-|\*|\/|\%|=|>|<|:=|>=|<=|==|and|or|&&|\|\|)\s*(?=\b|<<)/g, ' $1 '],
@@ -13,8 +13,6 @@ const formatRules = [
 
 const stringsRule = /(['"`])(\\['"`]|.)*?\1/gs
 const commentsRule = /#.*?$/gm
-const stringsRecoveryRule = /<<STRING>>/g
-const commentsRecoveryRule = /<<COMMENT>>\n/g
 const leftBracketsRule = /[\{\(\[]/g
 const rightBracketsRule = /[\}\)\]]/g
 
@@ -28,15 +26,18 @@ exports.activate = function (context) {
             const range = new vscode.Range(start, end)
             let text = document.getText(range)
 
-            // protect strings
+            // protect strings & comments
             const strings = []
             const comments = []
+            const protectHash = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(36)
+            const stringsRecoveryRule = `<<STRING${protectHash}>>`
+            const commentsRecoveryRule = `<<COMMENT${protectHash}>>\n`
             text = text.replace(stringsRule, function (match) {
                 strings.push(match)
-                return `<<STRING>>`
+                return stringsRecoveryRule
             }).replace(commentsRule, function (match) {
                 comments.push(match)
-                return "<<COMMENT>>\n"
+                return commentsRecoveryRule
             })
             // rules replacement
             for (const rule of formatRules) {
@@ -45,7 +46,7 @@ exports.activate = function (context) {
             // calculate indent
             let indent = 0
             const rows = text.split('\n')
-            text = rows.map((row, i) => {
+            text = rows.map(row => {
                 row = row.trim()
                 const il = row.match(leftBracketsRule)
                 const ir = row.match(rightBracketsRule)
@@ -53,12 +54,13 @@ exports.activate = function (context) {
                 row = ' '.repeat(options.tabSize * (indent + (delta < 0 ? delta : 0))) + row
                 indent = Math.max(0, indent + delta)
                 return row
-            }).join('\n')
+            }).map(row => /^\s*$/.test(row) ? '' : row).join('\n')
 
-            // recovery strings
+            // recovery strings & comments
             text = text
-                .replace(stringsRecoveryRule, () => strings.shift())
-                .replace(commentsRecoveryRule, () => comments.shift())
+                .replace(new RegExp(stringsRecoveryRule, 'g'), () => strings.shift())
+                .replace(new RegExp(commentsRecoveryRule, 'g'), () => comments.shift().trimRight())
+
 
             result.push(new vscode.TextEdit(range, text))
             return result
@@ -68,4 +70,4 @@ exports.activate = function (context) {
 
 
 exports.deactivate = function () {
-};
+}
